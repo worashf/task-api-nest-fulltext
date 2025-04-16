@@ -1,4 +1,4 @@
-Great! Here's a cleaned-up and formatted `README.md` tailored to your use case — testing PostgreSQL full-text search with NestJS. The project is titled `task-api-nest-fulltext` and linked to your GitHub username `worashf`.
+
 
 ---
 
