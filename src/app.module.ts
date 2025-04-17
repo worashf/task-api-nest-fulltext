@@ -5,29 +5,27 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TasksModule } from './tasks/tasks.module';
+import { AppDataSource } from './data-source'; // Import your data source
 
 @Module({
   imports: [
+    // Load configuration globally
     ConfigModule.forRoot({
-      isGlobal: true, // Makes ConfigModule available app-wide
-      envFilePath: '.env', // Specify .env file
+      isGlobal: true,
+      envFilePath: '.env',
     }),
+
+    // TypeOrmModule with dynamic configuration
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DB_HOST', 'localhost'),
-        port: configService.get<number>('DB_PORT', 5432),
-        username: configService.get<string>('DB_USER', 'postgres'),
-        password: configService.get<string>('DB_PASSWORD', 'postgres'),
-        database: configService.get<string>('DB_NAME', 'task_management'),
-        autoLoadEntities: true,
-        synchronize: false, // Set to false to use migrations in production
-        migrations: ['dist/migrations/*.js'],
-        migrationsRun: true, // Automatically run migrations on startup
+      useFactory: async (configService: ConfigService) => ({
+        ...AppDataSource.options, // Spread the options from AppDataSource here
+        migrationsRun: process.env.NODE_ENV !== 'production', // Run migrations unless in production
       }),
       inject: [ConfigService],
     }),
+
+    // Import modules for Users and Tasks
     UsersModule,
     TasksModule,
   ],
