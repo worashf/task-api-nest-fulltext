@@ -1,20 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@tasks/*": ["src/tasks/*"],
-      "@users/*": ["src/users/*"],
-
+      "*": ["*"]
     }
   },
   "include": ["src/**/*"],
