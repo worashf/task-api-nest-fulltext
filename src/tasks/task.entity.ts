@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, Index, ManyToOne } from "typeorm";
 
-import {User} from "src/users/user.entity";
+import {User} from "../users/user.entity";
 
 @Entity("tasks")
 export  class Task {
@@ -16,6 +16,7 @@ export  class Task {
 
     @Column()
     weight?: number
+
 
 
 
